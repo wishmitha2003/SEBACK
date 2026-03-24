@@ -38,5 +38,6 @@ build/
 ### Application Properties (optional - remove if you want to commit it) ###
 # application-local.properties
 
- DEBUGGING-GUIDE.md
- FRONTEND-INTEGRATION.md
+### Documentation ###
+DEBUGGING-GUIDE.md
+FRONTEND-INTEGRATION.md
