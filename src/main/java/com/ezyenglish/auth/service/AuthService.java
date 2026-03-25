@@ -33,7 +33,7 @@ public class AuthService {
 
     public AuthResponse signup(SignupRequest request) {
         log.info("Processing signup for username: {}, email: {}", request.getUsername(), request.getEmail());
-        
+
         if (userRepository.existsByUsername(request.getUsername())) {
             log.warn("Username already exists: {}", request.getUsername());
             throw new RuntimeException("Username is already taken");
@@ -84,8 +84,7 @@ public class AuthService {
 
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateToken((UserDetailsImpl) authentication.getPrincipal());
@@ -106,11 +105,10 @@ public class AuthService {
 
     public AuthResponse signin(SigninRequest request) {
         log.info("Processing signin for username: {}", request.getUsername());
-        
+
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateToken((UserDetailsImpl) authentication.getPrincipal());
