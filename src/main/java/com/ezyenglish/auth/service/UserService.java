@@ -24,7 +24,7 @@ public class UserService {
         return users.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
-    private UserResponse mapToResponse(User user) {
+    public UserResponse mapToResponse(User user) {
         String fullName = (user.getFirstName() != null ? user.getFirstName() : "") +
                 (user.getLastName() != null ? " " + user.getLastName() : "");
 
@@ -47,6 +47,12 @@ public class UserService {
                 .roles(user.getRoles()) // Still keep original roles
                 .role(roleDisplay) // Add display role
                 .status("Active")
+                .idCardNo(user.getIdCardNo())
+                .address(user.getAddress())
+                .city(user.getCity())
+                .postalCode(user.getPostalCode())
+                .country(user.getCountry())
+                .profileImageUrl(user.getProfileImageUrl())
                 .build();
     }
 
