@@ -49,4 +49,13 @@ public class UserService {
                 .status("Active")
                 .build();
     }
+
+    public void deleteUser(String id) {
+        log.info("Deleting user with id: {} from repository", id);
+        if (!userRepository.existsById(id)) {
+            log.error("User with id {} not found", id);
+            throw new RuntimeException("User not found with id: " + id);
+        }
+        userRepository.deleteById(id);
+    }
 }
