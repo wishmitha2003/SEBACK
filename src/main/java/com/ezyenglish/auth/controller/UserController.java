@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +34,20 @@ public class UserController {
             return ResponseEntity.ok(users);
         } catch (Exception e) {
             log.error("Failed to fetch users: ", e);
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        log.info("Received request to delete user with id: {}", id);
+        try {
+            userService.deleteUser(id);
+            log.info("Successfully deleted user with id: {}", id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            log.error("Failed to delete user {}: ", id, e);
             throw e;
         }
     }
