@@ -1,33 +1,22 @@
 package com.ezyenglish.auth.dto;
 
-import com.ezyenglish.auth.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-    private String id;
-    private String username;
-    private String email;
+public class ProfileUpdateRequest {
     private String firstName;
     private String lastName;
-    private String fullName;
     private String phone;
-    private Set<Role> roles;
-    private String role; // Primary role display
-    private String status; // For frontend compatibility
-
     private String idCardNo;
     private String address;
     private String city;
     private String postalCode;
     private String country;
-    private String profileImageUrl;
+    private String profileImageUrl; // Base64 or URL
 }

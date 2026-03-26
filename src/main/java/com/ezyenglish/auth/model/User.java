@@ -37,4 +37,11 @@ public class User {
 
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
+
+    private String idCardNo;
+    private String address;
+    private String city;
+    private String postalCode;
+    private String country;
+    private String profileImageUrl;
 }
