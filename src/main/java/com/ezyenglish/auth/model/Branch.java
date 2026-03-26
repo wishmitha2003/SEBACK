@@ -20,4 +20,6 @@ public class Branch {
     private String address;
     private String managerName;
     private String phone;
+    private String logoUrl;
+    private String locationUrl;
 }

@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -26,11 +28,13 @@ public class BranchController {
         return ResponseEntity.ok(service.getAllBranches());
     }
 
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Branch> createBranch(@RequestBody Branch branch) {
+    public ResponseEntity<Branch> createBranch(
+            @ModelAttribute Branch branch,
+            @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
         log.info("Request received to create branch: {}", branch.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createBranch(branch));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createBranch(branch, logo));
     }
 
     @DeleteMapping("/{id}")
@@ -41,10 +45,13 @@ public class BranchController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Branch> updateBranch(@PathVariable String id, @RequestBody Branch branch) {
+    public ResponseEntity<Branch> updateBranch(
+            @PathVariable String id,
+            @ModelAttribute Branch branch,
+            @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
         log.info("Request received to update branch: {}", id);
-        return ResponseEntity.ok(service.updateBranch(id, branch));
+        return ResponseEntity.ok(service.updateBranch(id, branch, logo));
     }
 }
