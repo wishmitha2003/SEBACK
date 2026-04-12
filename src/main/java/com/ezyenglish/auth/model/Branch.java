@@ -22,4 +22,6 @@ public class Branch {
     private String phone;
     private String logoUrl;
     private String locationUrl;
+    private Double lat;
+    private Double lng;
 }

@@ -28,13 +28,29 @@ public class BranchController {
         return ResponseEntity.ok(service.getAllBranches());
     }
 
-    @PostMapping(consumes = {"multipart/form-data"})
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Branch> createBranch(
-            @ModelAttribute Branch branch,
-            @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
+    public ResponseEntity<Branch> createBranch(@RequestBody Branch branch) {
         log.info("Request received to create branch: {}", branch.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createBranch(branch, logo));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createBranch(branch));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Branch> updateBranch(
+            @PathVariable String id,
+            @RequestBody Branch branch) {
+        log.info("Request received to update branch: {}", id);
+        return ResponseEntity.ok(service.updateBranch(id, branch));
+    }
+
+    @PatchMapping(value = "/{id}/logo", consumes = {"multipart/form-data"})
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Branch> uploadLogo(
+            @PathVariable String id,
+            @RequestParam("logo") MultipartFile logo) throws IOException {
+        log.info("Request received to upload logo for branch: {}", id);
+        return ResponseEntity.ok(service.uploadLogo(id, logo));
     }
 
     @DeleteMapping("/{id}")
@@ -43,15 +59,5 @@ public class BranchController {
         log.info("Request received to delete branch: {}", id);
         service.deleteBranch(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Branch> updateBranch(
-            @PathVariable String id,
-            @ModelAttribute Branch branch,
-            @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
-        log.info("Request received to update branch: {}", id);
-        return ResponseEntity.ok(service.updateBranch(id, branch, logo));
     }
 }
