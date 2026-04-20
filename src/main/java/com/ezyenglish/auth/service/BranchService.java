@@ -28,8 +28,12 @@ public class BranchService {
         return repository.findAll();
     }
 
-    public Branch createBranch(Branch branch) {
+    public Branch createBranch(Branch branch, MultipartFile logo) throws IOException {
         log.info("Creating new branch: {}", branch.getName());
+        if (logo != null && !logo.isEmpty()) {
+            String logoUrl = saveFile(logo);
+            branch.setLogoUrl(logoUrl);
+        }
         return repository.save(branch);
     }
 
@@ -38,27 +42,20 @@ public class BranchService {
         repository.deleteById(id);
     }
 
-    public Branch updateBranch(String id, Branch branch) {
+    public Branch updateBranch(String id, Branch branch, MultipartFile logo) throws IOException {
         log.info("Updating branch: {}", id);
         Branch existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
-
+        
         branch.setId(id);
-        // Preserve logoUrl if not provided in update payload
-        if (branch.getLogoUrl() == null || branch.getLogoUrl().isBlank()) {
-            branch.setLogoUrl(existing.getLogoUrl());
+        if (logo != null && !logo.isEmpty()) {
+            String logoUrl = saveFile(logo);
+            branch.setLogoUrl(logoUrl);
+        } else {
+            branch.setLogoUrl(existing.getLogoUrl()); // Keep existing logo if none provided
         }
+        
         return repository.save(branch);
-    }
-
-    public Branch uploadLogo(String id, MultipartFile logo) throws IOException {
-        log.info("Uploading logo for branch: {}", id);
-        Branch existing = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
-
-        String logoUrl = saveFile(logo);
-        existing.setLogoUrl(logoUrl);
-        return repository.save(existing);
     }
 
     private String saveFile(MultipartFile file) throws IOException {
@@ -68,11 +65,11 @@ public class BranchService {
         }
 
         String originalFileName = file.getOriginalFilename();
-        String extension = originalFileName != null && originalFileName.contains(".")
+        String extension = originalFileName != null && originalFileName.contains(".") 
                 ? originalFileName.substring(originalFileName.lastIndexOf(".")) : "";
         String newFileName = UUID.randomUUID().toString() + extension;
         Path filePath = uploadPath.resolve(newFileName);
-
+        
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
         return "/uploads/" + newFileName;
     }
