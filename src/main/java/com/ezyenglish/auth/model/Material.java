@@ -25,4 +25,5 @@ public class Material {
     private String uploadedBy;
     private LocalDateTime uploadedOn;
     private String status; // Published, Draft
+    private String subject;
 }

@@ -24,4 +24,5 @@ public class LanguageClass {
     private String branch;
     private String type; // online or physical
     private String status;
+    private Double price;
 }
