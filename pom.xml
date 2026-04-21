@@ -94,6 +94,13 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
+        <!-- Azure Speech SDK -->
+        <dependency>
+            <groupId>com.microsoft.cognitiveservices.speech</groupId>
+            <artifactId>client-sdk</artifactId>
+            <version>1.37.0</version>
+        </dependency>
     </dependencies>
 
     <build>
