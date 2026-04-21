@@ -26,6 +26,11 @@ public class VocabularyService {
         return repository.findByAgeSection(ageSection);
     }
 
+    public Vocabulary getVocabularyById(String id) {
+        log.info("Fetching vocabulary by id: {}", id);
+        return repository.findById(id).orElse(null);
+    }
+
     public Vocabulary createVocabulary(Vocabulary vocabulary, String addedBy) {
         log.info("Creating new vocabulary: {} for age section: {}", vocabulary.getWord(), vocabulary.getAgeSection());
         vocabulary.setAddedBy(addedBy);

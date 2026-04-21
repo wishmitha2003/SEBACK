@@ -22,6 +22,7 @@ public class Vocabulary {
     private String example; // Optional example sentence
     private String ageSection; // 1-5, 6-10, 11-15, 16-20, 20+
     private String addedBy; // Teacher's username
+    private String audioUrl; // URL to pronunciation audio
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
