@@ -99,6 +99,13 @@ public class PaymentService {
                 .collect(Collectors.toList());
     }
 
+    public PaymentResponse getPaymentById(String paymentId) {
+        log.info("Fetching payment by id: {}", paymentId);
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found: " + paymentId));
+        return mapToResponse(payment);
+    }
+
     public PaymentResponse approvePayment(String paymentId, String adminUsername, String notes) {
         log.info("Approving payment: {} by admin: {}", paymentId, adminUsername);
 

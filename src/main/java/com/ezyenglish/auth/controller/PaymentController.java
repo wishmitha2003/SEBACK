@@ -129,6 +129,21 @@ public class PaymentController {
         }
     }
 
+    // Admin: Get payment by ID (for viewing slip)
+    @GetMapping("/{paymentId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getPaymentById(@PathVariable String paymentId) {
+        try {
+            log.info("Fetching payment by id: {} (admin)", paymentId);
+            PaymentResponse response = paymentService.getPaymentById(paymentId);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Error fetching payment: ", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Failed to fetch payment: " + e.getMessage());
+        }
+    }
+
     // Admin: Approve payment
     @PutMapping("/{paymentId}/approve")
     @PreAuthorize("hasRole('ADMIN')")
