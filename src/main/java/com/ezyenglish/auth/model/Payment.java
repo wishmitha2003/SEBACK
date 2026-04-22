@@ -50,6 +50,8 @@ public class Payment {
 
     public enum PaymentStatus {
         PENDING,
+        AWAITING_APPROVAL,
+        PAID,
         APPROVED,
         REJECTED
     }
