@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@SuppressWarnings("null")
 @RequiredArgsConstructor
 public class PaymentService {
 
@@ -99,14 +100,14 @@ public class PaymentService {
                 .collect(Collectors.toList());
     }
 
-    public PaymentResponse getPaymentById(String paymentId) {
+    public PaymentResponse getPaymentById(@org.springframework.lang.NonNull String paymentId) {
         log.info("Fetching payment by id: {}", paymentId);
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new RuntimeException("Payment not found: " + paymentId));
         return mapToResponse(payment);
     }
 
-    public PaymentResponse approvePayment(String paymentId, String adminUsername, String notes) {
+    public PaymentResponse approvePayment(@org.springframework.lang.NonNull String paymentId, String adminUsername, String notes) {
         log.info("Approving payment: {} by admin: {}", paymentId, adminUsername);
 
         Payment payment = paymentRepository.findById(paymentId)
@@ -123,7 +124,7 @@ public class PaymentService {
         return mapToResponse(savedPayment);
     }
 
-    public PaymentResponse rejectPayment(String paymentId, String adminUsername, String notes) {
+    public PaymentResponse rejectPayment(@org.springframework.lang.NonNull String paymentId, String adminUsername, String notes) {
         log.info("Rejecting payment: {} by admin: {}", paymentId, adminUsername);
 
         Payment payment = paymentRepository.findById(paymentId)
@@ -140,7 +141,7 @@ public class PaymentService {
         return mapToResponse(savedPayment);
     }
 
-    public PaymentResponse uploadSlip(String paymentId, MultipartFile slipImage) throws IOException {
+    public PaymentResponse uploadSlip(@org.springframework.lang.NonNull String paymentId, MultipartFile slipImage) throws IOException {
         log.info("Uploading slip for payment: {}", paymentId);
 
         Payment payment = paymentRepository.findById(paymentId)

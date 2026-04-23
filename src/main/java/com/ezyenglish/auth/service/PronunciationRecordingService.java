@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@SuppressWarnings("null")
 @RequiredArgsConstructor
 public class PronunciationRecordingService {
 
@@ -71,7 +72,7 @@ public class PronunciationRecordingService {
                 .map(this::mapToResponse);
     }
 
-    public void deleteRecording(String id) {
+    public void deleteRecording(@org.springframework.lang.NonNull String id) {
         log.info("Deleting pronunciation recording: {}", id);
         repository.deleteById(id);
     }

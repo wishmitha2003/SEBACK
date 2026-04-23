@@ -97,7 +97,7 @@ public class PronunciationRecordingController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecording(
-            @PathVariable String id,
+            @PathVariable @org.springframework.lang.NonNull String id,
             @AuthenticationPrincipal UserDetails userDetails) {
         log.info("Request to delete recording: {}", id);
         service.deleteRecording(id);
