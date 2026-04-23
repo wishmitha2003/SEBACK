@@ -26,11 +26,6 @@ public class VocabularyService {
         return repository.findByAgeSection(ageSection);
     }
 
-    public Vocabulary getVocabularyById(String id) {
-        log.info("Fetching vocabulary by id: {}", id);
-        return repository.findById(id).orElse(null);
-    }
-
     public Vocabulary createVocabulary(Vocabulary vocabulary, String addedBy) {
         log.info("Creating new vocabulary: {} for age section: {}", vocabulary.getWord(), vocabulary.getAgeSection());
         vocabulary.setAddedBy(addedBy);
@@ -43,13 +38,13 @@ public class VocabularyService {
         log.info("Updating vocabulary with id: {}", id);
         Vocabulary existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vocabulary not found with id: " + id));
-        
+
         existing.setWord(vocabulary.getWord());
         existing.setMeaning(vocabulary.getMeaning());
         existing.setExample(vocabulary.getExample());
         existing.setAgeSection(vocabulary.getAgeSection());
         existing.setUpdatedAt(LocalDateTime.now());
-        
+
         return repository.save(existing);
     }
 
