@@ -44,7 +44,7 @@ public class MaterialController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteMaterial(@PathVariable(name = "id") String id) {
+    public ResponseEntity<Void> deleteMaterial(@PathVariable(name = "id") @org.springframework.lang.NonNull String id) {
         log.info("Request received to delete material: {}", id);
         service.deleteMaterial(id);
         return ResponseEntity.noContent().build();

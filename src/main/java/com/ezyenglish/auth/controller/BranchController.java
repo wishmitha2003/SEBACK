@@ -39,7 +39,7 @@ public class BranchController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteBranch(@PathVariable String id) {
+    public ResponseEntity<Void> deleteBranch(@PathVariable @org.springframework.lang.NonNull String id) {
         log.info("Request received to delete branch: {}", id);
         service.deleteBranch(id);
         return ResponseEntity.noContent().build();
@@ -48,7 +48,7 @@ public class BranchController {
     @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Branch> updateBranch(
-            @PathVariable String id,
+            @PathVariable @org.springframework.lang.NonNull String id,
             @ModelAttribute Branch branch,
             @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
         log.info("Request received to update branch: {}", id);

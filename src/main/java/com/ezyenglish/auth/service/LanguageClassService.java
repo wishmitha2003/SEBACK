@@ -25,7 +25,7 @@ public class LanguageClassService {
         return repository.save(languageClass);
     }
 
-    public void deleteClass(String id) {
+    public void deleteClass(@org.springframework.lang.NonNull String id) {
         log.info("Deleting class with ID: {}", id);
         repository.deleteById(id);
     }

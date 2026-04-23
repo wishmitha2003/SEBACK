@@ -41,7 +41,7 @@ public class PronunciationController {
             }
             
             Path path = Paths.get(audioPath);
-            Resource resource = new UrlResource(path.toUri());
+            Resource resource = new UrlResource(java.util.Objects.requireNonNull(path.toUri()));
             
             if (resource.exists()) {
                 return ResponseEntity.ok()

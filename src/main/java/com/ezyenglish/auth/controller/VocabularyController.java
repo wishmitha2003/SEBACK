@@ -3,10 +3,7 @@ package com.ezyenglish.auth.controller;
 import com.ezyenglish.auth.dto.VocabularyRequest;
 import com.ezyenglish.auth.model.Vocabulary;
 import com.ezyenglish.auth.service.VocabularyService;
-<<<<<<< test
 import com.ezyenglish.auth.service.PronunciationService;
-=======
->>>>>>> main
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,10 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-<<<<<<< test
 import java.util.Map;
-=======
->>>>>>> main
 
 @Slf4j
 @RestController
@@ -30,10 +24,7 @@ import java.util.Map;
 public class VocabularyController {
 
     private final VocabularyService service;
-<<<<<<< test
     private final PronunciationService pronunciationService;
-=======
->>>>>>> main
 
     // All users (students and teachers) can view all vocabularies
     @GetMapping
@@ -44,15 +35,14 @@ public class VocabularyController {
 
     // All users can view vocabularies by age section
     @GetMapping("/age/{ageSection}")
-    public ResponseEntity<List<Vocabulary>> getVocabulariesByAgeSection(@PathVariable String ageSection) {
+    public ResponseEntity<List<Vocabulary>> getVocabulariesByAgeSection(@PathVariable @org.springframework.lang.NonNull String ageSection) {
         log.info("Request received to fetch vocabularies for age section: {}", ageSection);
         return ResponseEntity.ok(service.getVocabulariesByAgeSection(ageSection));
     }
 
-<<<<<<< test
     // Generate pronunciation audio for a word
     @GetMapping("/{id}/pronunciation")
-    public ResponseEntity<?> getPronunciation(@PathVariable String id) {
+    public ResponseEntity<?> getPronunciation(@PathVariable @org.springframework.lang.NonNull String id) {
         log.info("Request to get pronunciation for vocabulary: {}", id);
         
         Vocabulary vocabulary = service.getVocabularyById(id);
@@ -71,9 +61,6 @@ public class VocabularyController {
         return ResponseEntity.internalServerError()
             .body("Failed to generate pronunciation");
     }
-
-=======
->>>>>>> main
     // Only teachers can add vocabularies
     @PostMapping
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
@@ -95,7 +82,7 @@ public class VocabularyController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     public ResponseEntity<Vocabulary> updateVocabulary(
-            @PathVariable String id,
+            @PathVariable @org.springframework.lang.NonNull String id,
             @RequestBody VocabularyRequest request) {
         log.info("Request received to update vocabulary: {}", id);
         Vocabulary vocabulary = Vocabulary.builder()
@@ -111,7 +98,7 @@ public class VocabularyController {
     // Only teachers can delete vocabularies
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteVocabulary(@PathVariable String id) {
+    public ResponseEntity<Void> deleteVocabulary(@PathVariable @org.springframework.lang.NonNull String id) {
         log.info("Request received to delete vocabulary: {}", id);
         service.deleteVocabulary(id);
         return ResponseEntity.noContent().build();

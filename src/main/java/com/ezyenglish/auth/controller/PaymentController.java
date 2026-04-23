@@ -81,7 +81,7 @@ public class PaymentController {
     // Student: Upload slip for existing payment
     @PostMapping("/{paymentId}/slip")
     public ResponseEntity<?> uploadSlip(
-            @PathVariable String paymentId,
+            @PathVariable @org.springframework.lang.NonNull String paymentId,
             @RequestPart("slipImage") MultipartFile slipImage,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
@@ -132,7 +132,7 @@ public class PaymentController {
     // Admin: Get payment by ID (for viewing slip)
     @GetMapping("/{paymentId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getPaymentById(@PathVariable String paymentId) {
+    public ResponseEntity<?> getPaymentById(@PathVariable @org.springframework.lang.NonNull String paymentId) {
         try {
             log.info("Fetching payment by id: {} (admin)", paymentId);
             PaymentResponse response = paymentService.getPaymentById(paymentId);
@@ -148,7 +148,7 @@ public class PaymentController {
     @PutMapping("/{paymentId}/approve")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> approvePayment(
-            @PathVariable String paymentId,
+            @PathVariable @org.springframework.lang.NonNull String paymentId,
             @RequestParam(required = false) String notes,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
@@ -166,7 +166,7 @@ public class PaymentController {
     @PutMapping("/{paymentId}/reject")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> rejectPayment(
-            @PathVariable String paymentId,
+            @PathVariable @org.springframework.lang.NonNull String paymentId,
             @RequestParam(required = false) String notes,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {

@@ -1,6 +1,11 @@
 package com.ezyenglish.auth.controller;
 
-import com.ezyenglish.auth.dto.*;
+import com.ezyenglish.auth.dto.AuthResponse;
+import com.ezyenglish.auth.dto.SigninRequest;
+import com.ezyenglish.auth.dto.SignupRequest;
+import com.ezyenglish.auth.dto.UserResponse;
+import com.ezyenglish.auth.dto.ProfileUpdateRequest;
+import com.ezyenglish.auth.dto.ErrorResponse;
 import com.ezyenglish.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
