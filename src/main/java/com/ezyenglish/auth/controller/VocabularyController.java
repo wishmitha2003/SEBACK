@@ -3,6 +3,10 @@ package com.ezyenglish.auth.controller;
 import com.ezyenglish.auth.dto.VocabularyRequest;
 import com.ezyenglish.auth.model.Vocabulary;
 import com.ezyenglish.auth.service.VocabularyService;
+<<<<<<< test
+import com.ezyenglish.auth.service.PronunciationService;
+=======
+>>>>>>> main
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+<<<<<<< test
+import java.util.Map;
+=======
+>>>>>>> main
 
 @Slf4j
 @RestController
@@ -22,6 +30,10 @@ import java.util.List;
 public class VocabularyController {
 
     private final VocabularyService service;
+<<<<<<< test
+    private final PronunciationService pronunciationService;
+=======
+>>>>>>> main
 
     // All users (students and teachers) can view all vocabularies
     @GetMapping
@@ -37,6 +49,31 @@ public class VocabularyController {
         return ResponseEntity.ok(service.getVocabulariesByAgeSection(ageSection));
     }
 
+<<<<<<< test
+    // Generate pronunciation audio for a word
+    @GetMapping("/{id}/pronunciation")
+    public ResponseEntity<?> getPronunciation(@PathVariable String id) {
+        log.info("Request to get pronunciation for vocabulary: {}", id);
+        
+        Vocabulary vocabulary = service.getVocabularyById(id);
+        if (vocabulary == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        String audioUrl = pronunciationService.getPronunciationUrl(vocabulary.getWord());
+        if (audioUrl != null) {
+            return ResponseEntity.ok(Map.of(
+                "word", vocabulary.getWord(),
+                "audioUrl", audioUrl
+            ));
+        }
+        
+        return ResponseEntity.internalServerError()
+            .body("Failed to generate pronunciation");
+    }
+
+=======
+>>>>>>> main
     // Only teachers can add vocabularies
     @PostMapping
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
