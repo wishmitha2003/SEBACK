@@ -40,7 +40,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable @org.springframework.lang.NonNull String id) {
         log.info("Received request to delete user with id: {}", id);
         try {
             userService.deleteUser(id);

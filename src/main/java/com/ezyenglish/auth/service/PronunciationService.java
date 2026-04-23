@@ -3,7 +3,7 @@ package com.ezyenglish.auth.service;
 import com.microsoft.cognitiveservices.speech.SpeechConfig;
 import com.microsoft.cognitiveservices.speech.SpeechSynthesizer;
 import com.microsoft.cognitiveservices.speech.SpeechSynthesisResult;
-import com.microsoft.cognitiveservices.speech.SpeechSynthesisOutputFormat;
+
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
