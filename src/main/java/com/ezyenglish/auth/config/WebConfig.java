@@ -14,16 +14,23 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(@org.springframework.lang.NonNull ResourceHandlerRegistry registry) {
         Path uploadDir = Paths.get("uploads").toAbsolutePath();
-        String uploadPath = uploadDir.toString().replace("\\", "/");
+        String uploadLocation = uploadDir.toUri().toString();
+        if (!uploadLocation.endsWith("/")) {
+            uploadLocation += "/";
+        }
         
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:" + uploadPath + "/");
+                .addResourceLocations(uploadLocation);
         
         // Also serve pronunciation folder specifically
         Path pronDir = Paths.get("uploads/pronunciation").toAbsolutePath();
-        String pronPath = pronDir.toString().replace("\\", "/");
+        String pronLocation = pronDir.toUri().toString();
+        if (!pronLocation.endsWith("/")) {
+            pronLocation += "/";
+        }
+        
         registry.addResourceHandler("/uploads/pronunciation/**")
-                .addResourceLocations("file:" + pronPath + "/");
+                .addResourceLocations(pronLocation);
     }
 
     @Override
