@@ -44,6 +44,19 @@ public class LanguageClassController {
         }
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<LanguageClass> updateClass(@PathVariable("id") String id, @RequestBody LanguageClass languageClass) {
+        log.info("Received request to update class with ID: {}", id);
+        try {
+            LanguageClass updated = classService.updateClass(id, languageClass);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            log.error("Failed to update class: ", e);
+            throw e;
+        }
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteClass(@PathVariable("id") String id) {
