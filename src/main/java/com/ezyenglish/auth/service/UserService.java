@@ -56,7 +56,7 @@ public class UserService {
                 .build();
     }
 
-    public void deleteUser(String id) {
+    public void deleteUser(@org.springframework.lang.NonNull String id) {
         log.info("Deleting user with id: {} from repository", id);
         if (!userRepository.existsById(id)) {
             log.error("User with id {} not found", id);

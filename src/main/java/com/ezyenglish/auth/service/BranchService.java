@@ -37,12 +37,12 @@ public class BranchService {
         return repository.save(branch);
     }
 
-    public void deleteBranch(String id) {
+    public void deleteBranch(@org.springframework.lang.NonNull String id) {
         log.info("Deleting branch: {}", id);
         repository.deleteById(id);
     }
 
-    public Branch updateBranch(String id, Branch branch, MultipartFile logo) throws IOException {
+    public Branch updateBranch(@org.springframework.lang.NonNull String id, Branch branch, MultipartFile logo) throws IOException {
         log.info("Updating branch: {}", id);
         Branch existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));

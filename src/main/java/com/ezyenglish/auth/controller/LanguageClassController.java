@@ -33,7 +33,7 @@ public class LanguageClassController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<LanguageClass> createClass(@RequestBody LanguageClass languageClass) {
+    public ResponseEntity<LanguageClass> createClass(@RequestBody @org.springframework.lang.NonNull LanguageClass languageClass) {
         log.info("Received request to create class: {}", languageClass.getName());
         try {
             LanguageClass created = classService.createClass(languageClass);
@@ -59,7 +59,7 @@ public class LanguageClassController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteClass(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteClass(@PathVariable("id") @org.springframework.lang.NonNull String id) {
         log.info("Received request to delete class with ID: {}", id);
         try {
             classService.deleteClass(id);

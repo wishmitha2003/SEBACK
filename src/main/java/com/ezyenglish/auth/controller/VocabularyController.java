@@ -32,7 +32,7 @@ public class VocabularyController {
 
     // All users can view vocabularies by age section
     @GetMapping("/age/{ageSection}")
-    public ResponseEntity<List<Vocabulary>> getVocabulariesByAgeSection(@PathVariable String ageSection) {
+    public ResponseEntity<List<Vocabulary>> getVocabulariesByAgeSection(@PathVariable @org.springframework.lang.NonNull String ageSection) {
         log.info("Request received to fetch vocabularies for age section: {}", ageSection);
         return ResponseEntity.ok(service.getVocabulariesByAgeSection(ageSection));
     }
@@ -58,7 +58,7 @@ public class VocabularyController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     public ResponseEntity<Vocabulary> updateVocabulary(
-            @PathVariable String id,
+            @PathVariable @org.springframework.lang.NonNull String id,
             @RequestBody VocabularyRequest request) {
         log.info("Request received to update vocabulary: {}", id);
         Vocabulary vocabulary = Vocabulary.builder()
@@ -74,7 +74,7 @@ public class VocabularyController {
     // Only teachers can delete vocabularies
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteVocabulary(@PathVariable String id) {
+    public ResponseEntity<Void> deleteVocabulary(@PathVariable @org.springframework.lang.NonNull String id) {
         log.info("Request received to delete vocabulary: {}", id);
         service.deleteVocabulary(id);
         return ResponseEntity.noContent().build();

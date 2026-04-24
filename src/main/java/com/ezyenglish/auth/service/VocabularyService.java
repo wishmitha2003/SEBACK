@@ -34,21 +34,21 @@ public class VocabularyService {
         return repository.save(vocabulary);
     }
 
-    public Vocabulary updateVocabulary(String id, Vocabulary vocabulary) {
+    public Vocabulary updateVocabulary(@org.springframework.lang.NonNull String id, Vocabulary vocabulary) {
         log.info("Updating vocabulary with id: {}", id);
         Vocabulary existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vocabulary not found with id: " + id));
-        
+
         existing.setWord(vocabulary.getWord());
         existing.setMeaning(vocabulary.getMeaning());
         existing.setExample(vocabulary.getExample());
         existing.setAgeSection(vocabulary.getAgeSection());
         existing.setUpdatedAt(LocalDateTime.now());
-        
+
         return repository.save(existing);
     }
 
-    public void deleteVocabulary(String id) {
+    public void deleteVocabulary(@org.springframework.lang.NonNull String id) {
         log.info("Deleting vocabulary with id: {}", id);
         repository.deleteById(id);
     }

@@ -70,7 +70,7 @@ public class MaterialService {
         return repository.save(material);
     }
 
-    public void deleteMaterial(String id) {
+    public void deleteMaterial(@org.springframework.lang.NonNull String id) {
         log.info("Deleting material with ID: {}", id);
         repository.deleteById(id);
     }
