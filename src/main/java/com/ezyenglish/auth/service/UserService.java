@@ -24,6 +24,12 @@ public class UserService {
         return users.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
+    public List<UserResponse> getLeaderboard() {
+        log.info("Fetching leaderboard from repository");
+        List<User> users = userRepository.findTop10ByOrderByXpDesc();
+        return users.stream().map(this::mapToResponse).collect(Collectors.toList());
+    }
+
     public UserResponse mapToResponse(User user) {
         String fullName = (user.getFirstName() != null ? user.getFirstName() : "") +
                 (user.getLastName() != null ? " " + user.getLastName() : "");
@@ -53,6 +59,8 @@ public class UserService {
                 .postalCode(user.getPostalCode())
                 .country(user.getCountry())
                 .profileImageUrl(user.getProfileImageUrl())
+                .xp(user.getXp())
+                .streak(user.getStreak())
                 .build();
     }
 
