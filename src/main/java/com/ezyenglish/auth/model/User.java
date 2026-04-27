@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,4 +45,12 @@ public class User {
     private String postalCode;
     private String country;
     private String profileImageUrl;
+
+    @Builder.Default
+    private Integer xp = 0;
+
+    @Builder.Default
+    private Integer streak = 0;
+
+    private LocalDate lastMissionUpdate;
 }
