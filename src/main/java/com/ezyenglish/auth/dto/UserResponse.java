@@ -30,4 +30,6 @@ public class UserResponse {
     private String postalCode;
     private String country;
     private String profileImageUrl;
+    private Integer xp;
+    private Integer streak;
 }

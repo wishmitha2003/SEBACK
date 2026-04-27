@@ -38,6 +38,19 @@ public class UserController {
         }
     }
 
+    @GetMapping("/leaderboard")
+    @PreAuthorize("hasRole('STUDENT') or hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<UserResponse>> getLeaderboard() {
+        log.info("Received request to fetch leaderboard");
+        try {
+            List<UserResponse> leaderboard = userService.getLeaderboard();
+            return ResponseEntity.ok(leaderboard);
+        } catch (Exception e) {
+            log.error("Failed to fetch leaderboard: ", e);
+            throw e;
+        }
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable @org.springframework.lang.NonNull String id) {

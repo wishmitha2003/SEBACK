@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class PronunciationRecordingService {
 
     private final PronunciationRecordingRepository repository;
+    private final MissionService missionService;
 
     public PronunciationRecordingResponse saveRecording(PronunciationRecordingRequest request, String userId) {
         log.info("Saving pronunciation recording for user: {} and vocabulary: {}", userId, request.getVocabularyId());
@@ -48,6 +49,11 @@ public class PronunciationRecordingService {
         }
         
         PronunciationRecording saved = repository.save(recording);
+        
+        // Update mission progress
+        missionService.updateMissionProgress(userId, "VOCAB", 1);
+        missionService.updateMissionProgress(userId, "STREAK", 1);
+        
         log.info("Saved pronunciation recording with id: {}", saved.getId());
         return mapToResponse(saved);
     }
