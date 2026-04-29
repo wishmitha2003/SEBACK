@@ -13,10 +13,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public class LeaderboardService {
 
-    private static final int DEFAULT_LIMIT    = 50;
     private static final int MAX_LIMIT        = 100;
     private static final int SURROUNDING_SIZE = 2;   // players above & below me
 
@@ -133,7 +131,6 @@ public class LeaderboardService {
         List<LeaderboardEntryResponse> result = new ArrayList<>();
         int rank          = 1;
         int prevScore     = -1;
-        int sameRankCount = 0;
 
         for (int i = 0; i < users.size(); i++) {
             User u     = users.get(i);
@@ -141,11 +138,9 @@ public class LeaderboardService {
 
             if (score == prevScore) {
                 // Tie – same rank as the previous entry
-                sameRankCount++;
             } else {
                 rank      = i + 1;
                 prevScore = score;
-                sameRankCount = 0;
             }
 
             boolean isMe = u.getUsername().equals(currentUser);
