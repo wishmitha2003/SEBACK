@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ezyenglish-backend
+    env: docker
+    plan: free
+    region: singapore # Change this to your preferred region
+    envVars:
+      - key: PORT
+        value: 8082
+      - key: SPRING_DATA_MONGODB_URI
+        sync: false # Set this in Render Dashboard for security
+      - key: JWT_SECRET
+        sync: false # Set this in Render Dashboard for security
+      - key: AZURE_SPEECH_KEY
+        sync: false # Set this in Render Dashboard for security
+      - key: AZURE_SPEECH_REGION
+        value: eastus
+    autoDeploy: true
