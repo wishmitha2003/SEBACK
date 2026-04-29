@@ -21,6 +21,11 @@ public class GameService {
         
         Map<String, Object> result = new HashMap<>();
         
+        if (gameId == null) {
+            log.warn("Attempted to fetch game with null id");
+            return result;
+        }
+        
         try {
             Optional<Game> gameOptional = gameRepository.findById(gameId);
             

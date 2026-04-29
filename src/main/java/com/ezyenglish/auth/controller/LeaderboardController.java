@@ -27,7 +27,6 @@ import java.util.List;
 @RequestMapping("/api/leaderboard")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", maxAge = 3600)
-@SuppressWarnings("null")
 public class LeaderboardController {
 
     private final LeaderboardService leaderboardService;
