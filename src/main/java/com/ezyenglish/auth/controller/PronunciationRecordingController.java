@@ -23,13 +23,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/pronunciation")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600, allowCredentials = "true")
 public class PronunciationRecordingController {
 
     private final PronunciationRecordingService service;
     
     private static final String UPLOAD_DIR = "uploads/pronunciation/";
-    private static final String BASE_URL = "http://localhost:8082";
+    private static final String BASE_URL = "https://ezyenglishweb.onrender.com";
 
     @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<PronunciationRecordingResponse> saveRecording(
