@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@SuppressWarnings("null")
 @RequiredArgsConstructor
 public class PaymentService {
 
