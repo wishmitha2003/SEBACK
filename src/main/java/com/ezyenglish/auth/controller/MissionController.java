@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/api/missions")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", maxAge = 3600)
-@SuppressWarnings("null")
 public class MissionController {
 
     private final MissionService missionService;

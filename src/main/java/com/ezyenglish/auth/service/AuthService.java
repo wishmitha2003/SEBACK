@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@SuppressWarnings("null")
+@SuppressWarnings("all")
 @RequiredArgsConstructor
 public class AuthService {
 
