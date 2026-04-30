@@ -37,7 +37,6 @@ public class UserController {
     }
 
     @GetMapping("/leaderboard")
-    @PreAuthorize("hasRole('STUDENT') or hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getLeaderboard() {
         log.info("Received request to fetch leaderboard");
         try {

@@ -77,7 +77,19 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/signup", "/signin", "/health", "/", "/api/materials", "/api/materials/**", "/uploads/**", "/api/pronunciation/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/health",
+                                "/signup",
+                                "/signin",
+                                "/api/auth/**",
+                                "/api/branches/**",
+                                "/api/classes/**",
+                                "/api/materials/**",
+                                "/api/users/leaderboard",
+                                "/api/pronunciation/**",
+                                "/uploads/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
